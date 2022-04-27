@@ -1,0 +1,3482 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/26/2022 6:08:27 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="CARLOS"
+  DTS:CreatorName="CARLOS\Carlos"
+  DTS:DTSID="{405CCFFD-3691-4A4A-A80D-DABD10E02F54}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="9226"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="17"
+  DTS:VersionGUID="{D7F642AA-E840-4D11-AE50-383250BEF617}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DB.DwParcial]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{7D44D7F7-91FE-4C3D-A098-30956C7878C9}"
+      DTS:ObjectName="DB.DwParcial">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=.;Initial Catalog=DwParcial;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DB.Salud6]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{670A530D-3092-4FF0-855E-EBF522F38E34}"
+      DTS:ObjectName="DB.Salud6">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=.;Initial Catalog=Salud6;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Dim Atenciones"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{9B4A00F2-2606-44DF-A106-BF0CD895B818}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Dim Atenciones"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Dim Atenciones\Datos Atenciones"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Datos Atenciones"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT Usuario.Cedula, Usuario.Nombre, Sexo.CodSexo, Sexo.TipoSexo, Diagnostico.CodDiag, Diagnostico.NombreDiagnostico, Diagnostico.Sexo, Incapacidades.Diagnostico, Incapacidades.Origen, Incapacidades.FechaInicio, 
+                  Incapacidades.FechaFin
+FROM     Sexo INNER JOIN
+                  Usuario ON Sexo.CodSexo = Usuario.TSexo INNER JOIN
+                  Diagnostico ON Sexo.CodSexo = Diagnostico.Sexo INNER JOIN
+                  Incapacidades ON Diagnostico.CodDiag = Incapacidades.Diagnostico</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Dim Atenciones\Datos Atenciones.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DB.Salud6]"
+                  connectionManagerRefId="Package.ConnectionManagers[DB.Salud6]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[Cedula]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].ExternalColumns[Cedula]"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[Cedula]"
+                      name="Cedula"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].ExternalColumns[Nombre]"
+                      length="250"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[Nombre]"
+                      name="Nombre"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[CodSexo]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].ExternalColumns[CodSexo]"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[CodSexo]"
+                      name="CodSexo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[TipoSexo]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].ExternalColumns[TipoSexo]"
+                      length="1"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[TipoSexo]"
+                      name="TipoSexo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[CodDiag]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].ExternalColumns[CodDiag]"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[CodDiag]"
+                      name="CodDiag"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[NombreDiagnostico]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].ExternalColumns[NombreDiagnostico]"
+                      length="500"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[NombreDiagnostico]"
+                      name="NombreDiagnostico"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[Sexo]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].ExternalColumns[Sexo]"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[Sexo]"
+                      name="Sexo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[Diagnostico]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].ExternalColumns[Diagnostico]"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[Diagnostico]"
+                      name="Diagnostico"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[Origen]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].ExternalColumns[Origen]"
+                      length="50"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[Origen]"
+                      name="Origen"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[FechaInicio]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].ExternalColumns[FechaInicio]"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[FechaInicio]"
+                      name="FechaInicio"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[FechaFin]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].ExternalColumns[FechaFin]"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[FechaFin]"
+                      name="FechaFin"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].ExternalColumns[Cedula]"
+                      dataType="i4"
+                      name="Cedula" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].ExternalColumns[Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Nombre" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].ExternalColumns[CodSexo]"
+                      dataType="i4"
+                      name="CodSexo" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].ExternalColumns[TipoSexo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="TipoSexo" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].ExternalColumns[CodDiag]"
+                      dataType="i4"
+                      name="CodDiag" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].ExternalColumns[NombreDiagnostico]"
+                      codePage="1252"
+                      dataType="str"
+                      length="500"
+                      name="NombreDiagnostico" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].ExternalColumns[Sexo]"
+                      dataType="i4"
+                      name="Sexo" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].ExternalColumns[Diagnostico]"
+                      dataType="i4"
+                      name="Diagnostico" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].ExternalColumns[Origen]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Origen" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].ExternalColumns[FechaInicio]"
+                      dataType="dbTimeStamp"
+                      name="FechaInicio" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].ExternalColumns[FechaFin]"
+                      dataType="dbTimeStamp"
+                      name="FechaFin" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output].Columns[Cedula]"
+                      dataType="i4"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output].Columns[Cedula]"
+                      name="Cedula" />
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output].Columns[Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output].Columns[Nombre]"
+                      name="Nombre" />
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output].Columns[CodSexo]"
+                      dataType="i4"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output].Columns[CodSexo]"
+                      name="CodSexo" />
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output].Columns[TipoSexo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output].Columns[TipoSexo]"
+                      name="TipoSexo" />
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output].Columns[CodDiag]"
+                      dataType="i4"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output].Columns[CodDiag]"
+                      name="CodDiag" />
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output].Columns[NombreDiagnostico]"
+                      codePage="1252"
+                      dataType="str"
+                      length="500"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output].Columns[NombreDiagnostico]"
+                      name="NombreDiagnostico" />
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output].Columns[Sexo]"
+                      dataType="i4"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output].Columns[Sexo]"
+                      name="Sexo" />
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output].Columns[Diagnostico]"
+                      dataType="i4"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output].Columns[Diagnostico]"
+                      name="Diagnostico" />
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output].Columns[Origen]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output].Columns[Origen]"
+                      name="Origen" />
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output].Columns[FechaInicio]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output].Columns[FechaInicio]"
+                      name="FechaInicio" />
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output].Columns[FechaFin]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output].Columns[FechaFin]"
+                      name="FechaFin" />
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Dim Atenciones\Dim Atenciones"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Dim Atenciones"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Dim Atenciones]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Dim Atenciones\Dim Atenciones.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DB.DwParcial]"
+                  connectionManagerRefId="Package.ConnectionManagers[DB.DwParcial]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].Columns[Cedula]"
+                      cachedDataType="i4"
+                      cachedName="Cedula"
+                      cachedSortKeyPosition="1"
+                      externalMetadataColumnId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].ExternalColumns[Cedula]"
+                      lineageId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[Cedula]" />
+                    <inputColumn
+                      refId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].Columns[Nombre]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="Nombre"
+                      externalMetadataColumnId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].ExternalColumns[Nombre]"
+                      lineageId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[Nombre]" />
+                    <inputColumn
+                      refId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].Columns[CodSexo]"
+                      cachedDataType="i4"
+                      cachedName="CodSexo"
+                      externalMetadataColumnId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].ExternalColumns[CodSexo]"
+                      lineageId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[CodSexo]" />
+                    <inputColumn
+                      refId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].Columns[TipoSexo]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="TipoSexo"
+                      externalMetadataColumnId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].ExternalColumns[TipoSexo]"
+                      lineageId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[TipoSexo]" />
+                    <inputColumn
+                      refId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].Columns[CodDiag]"
+                      cachedDataType="i4"
+                      cachedName="CodDiag"
+                      externalMetadataColumnId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].ExternalColumns[CodDiag]"
+                      lineageId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[CodDiag]" />
+                    <inputColumn
+                      refId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].Columns[NombreDiagnostico]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="500"
+                      cachedName="NombreDiagnostico"
+                      externalMetadataColumnId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].ExternalColumns[NombreDiagnostico]"
+                      lineageId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[NombreDiagnostico]" />
+                    <inputColumn
+                      refId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].Columns[Sexo]"
+                      cachedDataType="i4"
+                      cachedName="Sexo"
+                      externalMetadataColumnId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].ExternalColumns[Sexo]"
+                      lineageId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[Sexo]" />
+                    <inputColumn
+                      refId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].Columns[Diagnostico]"
+                      cachedDataType="i4"
+                      cachedName="Diagnostico"
+                      externalMetadataColumnId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].ExternalColumns[Diagnostico]"
+                      lineageId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[Diagnostico]" />
+                    <inputColumn
+                      refId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].Columns[Origen]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Origen"
+                      externalMetadataColumnId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].ExternalColumns[Origen]"
+                      lineageId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[Origen]" />
+                    <inputColumn
+                      refId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].Columns[FechaInicio]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaInicio"
+                      externalMetadataColumnId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].ExternalColumns[FechaInicio]"
+                      lineageId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[FechaInicio]" />
+                    <inputColumn
+                      refId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].Columns[FechaFin]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaFin"
+                      externalMetadataColumnId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].ExternalColumns[FechaFin]"
+                      lineageId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[FechaFin]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].ExternalColumns[IdAtencion]"
+                      dataType="i4"
+                      name="IdAtencion" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].ExternalColumns[Cedula]"
+                      dataType="i4"
+                      name="Cedula" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].ExternalColumns[Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Nombre" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].ExternalColumns[CodSexo]"
+                      dataType="i4"
+                      name="CodSexo" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].ExternalColumns[TipoSexo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="TipoSexo" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].ExternalColumns[CodDiag]"
+                      dataType="i4"
+                      name="CodDiag" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].ExternalColumns[NombreDiagnostico]"
+                      codePage="1252"
+                      dataType="str"
+                      length="500"
+                      name="NombreDiagnostico" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].ExternalColumns[Sexo]"
+                      dataType="i4"
+                      name="Sexo" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].ExternalColumns[Diagnostico]"
+                      dataType="i4"
+                      name="Diagnostico" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].ExternalColumns[Origen]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Origen" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].ExternalColumns[FechaInicio]"
+                      dataType="dbTimeStamp"
+                      name="FechaInicio" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input].ExternalColumns[FechaFin]"
+                      dataType="dbTimeStamp"
+                      name="FechaFin" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Dim Atenciones\Dim Atenciones.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Dim Atenciones.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dim Atenciones\Dim Atenciones.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Dim Atenciones.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dim Atenciones\Dim Atenciones.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Dim Atenciones\Ordenar"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Ordenar"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Dim Atenciones\Ordenar.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Dim Atenciones\Ordenar.Inputs[Sort Input].Columns[Cedula]"
+                      cachedDataType="i4"
+                      cachedName="Cedula"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[Cedula]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim Atenciones\Ordenar.Inputs[Sort Input].Columns[Nombre]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="Nombre"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[Nombre]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim Atenciones\Ordenar.Inputs[Sort Input].Columns[CodSexo]"
+                      cachedDataType="i4"
+                      cachedName="CodSexo"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[CodSexo]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim Atenciones\Ordenar.Inputs[Sort Input].Columns[TipoSexo]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="TipoSexo"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[TipoSexo]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim Atenciones\Ordenar.Inputs[Sort Input].Columns[CodDiag]"
+                      cachedDataType="i4"
+                      cachedName="CodDiag"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[CodDiag]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim Atenciones\Ordenar.Inputs[Sort Input].Columns[NombreDiagnostico]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="500"
+                      cachedName="NombreDiagnostico"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[NombreDiagnostico]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim Atenciones\Ordenar.Inputs[Sort Input].Columns[Sexo]"
+                      cachedDataType="i4"
+                      cachedName="Sexo"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[Sexo]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim Atenciones\Ordenar.Inputs[Sort Input].Columns[Diagnostico]"
+                      cachedDataType="i4"
+                      cachedName="Diagnostico"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[Diagnostico]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim Atenciones\Ordenar.Inputs[Sort Input].Columns[Origen]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Origen"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[Origen]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim Atenciones\Ordenar.Inputs[Sort Input].Columns[FechaInicio]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaInicio"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[FechaInicio]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim Atenciones\Ordenar.Inputs[Sort Input].Columns[FechaFin]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaFin"
+                      lineageId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[FechaFin]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[Cedula]"
+                      dataType="i4"
+                      lineageId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[Cedula]"
+                      name="Cedula"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[Cedula]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[Nombre]"
+                      name="Nombre">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[Nombre]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[CodSexo]"
+                      dataType="i4"
+                      lineageId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[CodSexo]"
+                      name="CodSexo">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[CodSexo]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[TipoSexo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[TipoSexo]"
+                      name="TipoSexo">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[TipoSexo]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[CodDiag]"
+                      dataType="i4"
+                      lineageId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[CodDiag]"
+                      name="CodDiag">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[CodDiag]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[NombreDiagnostico]"
+                      codePage="1252"
+                      dataType="str"
+                      length="500"
+                      lineageId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[NombreDiagnostico]"
+                      name="NombreDiagnostico">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[NombreDiagnostico]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[Sexo]"
+                      dataType="i4"
+                      lineageId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[Sexo]"
+                      name="Sexo">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[Sexo]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[Diagnostico]"
+                      dataType="i4"
+                      lineageId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[Diagnostico]"
+                      name="Diagnostico">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[Diagnostico]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[Origen]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[Origen]"
+                      name="Origen">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[Origen]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[FechaInicio]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[FechaInicio]"
+                      name="FechaInicio">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[FechaInicio]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[FechaFin]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output].Columns[FechaFin]"
+                      name="FechaFin">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output].Columns[FechaFin]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Dim Atenciones.Paths[OLE DB Source Output]"
+              endId="Package\Dim Atenciones\Ordenar.Inputs[Sort Input]"
+              name="OLE DB Source Output"
+              startId="Package\Dim Atenciones\Datos Atenciones.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Dim Atenciones.Paths[Sort Output]"
+              endId="Package\Dim Atenciones\Dim Atenciones.Inputs[OLE DB Destination Input]"
+              name="Sort Output"
+              startId="Package\Dim Atenciones\Ordenar.Outputs[Sort Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Dim Empleado"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{BBE5D5ED-B331-4DC5-B178-E91C9C11CA53}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Dim Empleado"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Dim Empleado\Datos Empleado"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Datos Empleado"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT Empleado.Carne, Empleado.Cedula, Empleado.Nombre, Empleado.Edad, Sexo.TipoSexo, Cargo.NombreCargo
+FROM     Empleado INNER JOIN
+                  Sexo ON Empleado.TSexo = Sexo.CodSexo INNER JOIN
+                  Turno ON Empleado.Turno = Turno.IdTurno INNER JOIN
+                  Prestadores ON Empleado.IdIPS = Prestadores.CodPrestador INNER JOIN
+                  Cargo ON Empleado.IdCargo = Cargo.CodCargo</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Dim Empleado\Datos Empleado.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DB.Salud6]"
+                  connectionManagerRefId="Package.ConnectionManagers[DB.Salud6]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].Columns[Carne]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].ExternalColumns[Carne]"
+                      lineageId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].Columns[Carne]"
+                      name="Carne"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].Columns[Cedula]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].ExternalColumns[Cedula]"
+                      lineageId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].Columns[Cedula]"
+                      name="Cedula"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].Columns[Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].ExternalColumns[Nombre]"
+                      length="250"
+                      lineageId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].Columns[Nombre]"
+                      name="Nombre"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].Columns[Edad]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].ExternalColumns[Edad]"
+                      lineageId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].Columns[Edad]"
+                      name="Edad"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].Columns[TipoSexo]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].ExternalColumns[TipoSexo]"
+                      length="1"
+                      lineageId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].Columns[TipoSexo]"
+                      name="TipoSexo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].Columns[NombreCargo]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].ExternalColumns[NombreCargo]"
+                      length="100"
+                      lineageId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].Columns[NombreCargo]"
+                      name="NombreCargo"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].ExternalColumns[Carne]"
+                      dataType="i4"
+                      name="Carne" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].ExternalColumns[Cedula]"
+                      dataType="i4"
+                      name="Cedula" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].ExternalColumns[Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Nombre" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].ExternalColumns[Edad]"
+                      dataType="i4"
+                      name="Edad" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].ExternalColumns[TipoSexo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="TipoSexo" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].ExternalColumns[NombreCargo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="NombreCargo" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Error Output].Columns[Carne]"
+                      dataType="i4"
+                      lineageId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Error Output].Columns[Carne]"
+                      name="Carne" />
+                    <outputColumn
+                      refId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Error Output].Columns[Cedula]"
+                      dataType="i4"
+                      lineageId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Error Output].Columns[Cedula]"
+                      name="Cedula" />
+                    <outputColumn
+                      refId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Error Output].Columns[Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Error Output].Columns[Nombre]"
+                      name="Nombre" />
+                    <outputColumn
+                      refId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Error Output].Columns[Edad]"
+                      dataType="i4"
+                      lineageId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Error Output].Columns[Edad]"
+                      name="Edad" />
+                    <outputColumn
+                      refId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Error Output].Columns[TipoSexo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Error Output].Columns[TipoSexo]"
+                      name="TipoSexo" />
+                    <outputColumn
+                      refId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Error Output].Columns[NombreCargo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Error Output].Columns[NombreCargo]"
+                      name="NombreCargo" />
+                    <outputColumn
+                      refId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Dim Empleado\Dim Empleado"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Dim Empleado"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Dim Empleado]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Dim Empleado\Dim Empleado.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DB.DwParcial]"
+                  connectionManagerRefId="Package.ConnectionManagers[DB.DwParcial]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Dim Empleado\Dim Empleado.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Dim Empleado\Dim Empleado.Inputs[OLE DB Destination Input].Columns[Carne]"
+                      cachedDataType="i4"
+                      cachedName="Carne"
+                      cachedSortKeyPosition="1"
+                      externalMetadataColumnId="Package\Dim Empleado\Dim Empleado.Inputs[OLE DB Destination Input].ExternalColumns[Carne]"
+                      lineageId="Package\Dim Empleado\Ordenar.Outputs[Sort Output].Columns[Carne]" />
+                    <inputColumn
+                      refId="Package\Dim Empleado\Dim Empleado.Inputs[OLE DB Destination Input].Columns[Cedula]"
+                      cachedDataType="i4"
+                      cachedName="Cedula"
+                      externalMetadataColumnId="Package\Dim Empleado\Dim Empleado.Inputs[OLE DB Destination Input].ExternalColumns[Cedula]"
+                      lineageId="Package\Dim Empleado\Ordenar.Outputs[Sort Output].Columns[Cedula]" />
+                    <inputColumn
+                      refId="Package\Dim Empleado\Dim Empleado.Inputs[OLE DB Destination Input].Columns[Nombre]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="Nombre"
+                      externalMetadataColumnId="Package\Dim Empleado\Dim Empleado.Inputs[OLE DB Destination Input].ExternalColumns[Nombre]"
+                      lineageId="Package\Dim Empleado\Ordenar.Outputs[Sort Output].Columns[Nombre]" />
+                    <inputColumn
+                      refId="Package\Dim Empleado\Dim Empleado.Inputs[OLE DB Destination Input].Columns[Edad]"
+                      cachedDataType="i4"
+                      cachedName="Edad"
+                      externalMetadataColumnId="Package\Dim Empleado\Dim Empleado.Inputs[OLE DB Destination Input].ExternalColumns[Edad]"
+                      lineageId="Package\Dim Empleado\Ordenar.Outputs[Sort Output].Columns[Edad]" />
+                    <inputColumn
+                      refId="Package\Dim Empleado\Dim Empleado.Inputs[OLE DB Destination Input].Columns[TipoSexo]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="TipoSexo"
+                      externalMetadataColumnId="Package\Dim Empleado\Dim Empleado.Inputs[OLE DB Destination Input].ExternalColumns[TipoSexo]"
+                      lineageId="Package\Dim Empleado\Ordenar.Outputs[Sort Output].Columns[TipoSexo]" />
+                    <inputColumn
+                      refId="Package\Dim Empleado\Dim Empleado.Inputs[OLE DB Destination Input].Columns[NombreCargo]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="NombreCargo"
+                      externalMetadataColumnId="Package\Dim Empleado\Dim Empleado.Inputs[OLE DB Destination Input].ExternalColumns[NombreCargo]"
+                      lineageId="Package\Dim Empleado\Ordenar.Outputs[Sort Output].Columns[NombreCargo]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Dim Empleado\Dim Empleado.Inputs[OLE DB Destination Input].ExternalColumns[EIdEmpleado]"
+                      dataType="i4"
+                      name="EIdEmpleado" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Empleado\Dim Empleado.Inputs[OLE DB Destination Input].ExternalColumns[Carne]"
+                      dataType="i4"
+                      name="Carne" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Empleado\Dim Empleado.Inputs[OLE DB Destination Input].ExternalColumns[Cedula]"
+                      dataType="i4"
+                      name="Cedula" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Empleado\Dim Empleado.Inputs[OLE DB Destination Input].ExternalColumns[Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Nombre" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Empleado\Dim Empleado.Inputs[OLE DB Destination Input].ExternalColumns[Edad]"
+                      dataType="i4"
+                      name="Edad" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Empleado\Dim Empleado.Inputs[OLE DB Destination Input].ExternalColumns[TipoSexo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="TipoSexo" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Empleado\Dim Empleado.Inputs[OLE DB Destination Input].ExternalColumns[NombreCargo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="NombreCargo" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Dim Empleado\Dim Empleado.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Dim Empleado\Dim Empleado.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim Empleado\Dim Empleado.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dim Empleado\Dim Empleado.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dim Empleado\Dim Empleado.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dim Empleado\Dim Empleado.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Dim Empleado\Ordenar"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Ordenar"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Dim Empleado\Ordenar.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Dim Empleado\Ordenar.Inputs[Sort Input].Columns[Carne]"
+                      cachedDataType="i4"
+                      cachedName="Carne"
+                      lineageId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].Columns[Carne]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim Empleado\Ordenar.Inputs[Sort Input].Columns[Cedula]"
+                      cachedDataType="i4"
+                      cachedName="Cedula"
+                      lineageId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].Columns[Cedula]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim Empleado\Ordenar.Inputs[Sort Input].Columns[Nombre]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="Nombre"
+                      lineageId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].Columns[Nombre]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim Empleado\Ordenar.Inputs[Sort Input].Columns[Edad]"
+                      cachedDataType="i4"
+                      cachedName="Edad"
+                      lineageId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].Columns[Edad]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim Empleado\Ordenar.Inputs[Sort Input].Columns[TipoSexo]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="TipoSexo"
+                      lineageId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].Columns[TipoSexo]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim Empleado\Ordenar.Inputs[Sort Input].Columns[NombreCargo]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="NombreCargo"
+                      lineageId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].Columns[NombreCargo]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Dim Empleado\Ordenar.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim Empleado\Ordenar.Outputs[Sort Output].Columns[Carne]"
+                      dataType="i4"
+                      lineageId="Package\Dim Empleado\Ordenar.Outputs[Sort Output].Columns[Carne]"
+                      name="Carne"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].Columns[Carne]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim Empleado\Ordenar.Outputs[Sort Output].Columns[Cedula]"
+                      dataType="i4"
+                      lineageId="Package\Dim Empleado\Ordenar.Outputs[Sort Output].Columns[Cedula]"
+                      name="Cedula">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].Columns[Cedula]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim Empleado\Ordenar.Outputs[Sort Output].Columns[Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\Dim Empleado\Ordenar.Outputs[Sort Output].Columns[Nombre]"
+                      name="Nombre">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].Columns[Nombre]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim Empleado\Ordenar.Outputs[Sort Output].Columns[Edad]"
+                      dataType="i4"
+                      lineageId="Package\Dim Empleado\Ordenar.Outputs[Sort Output].Columns[Edad]"
+                      name="Edad">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].Columns[Edad]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim Empleado\Ordenar.Outputs[Sort Output].Columns[TipoSexo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Dim Empleado\Ordenar.Outputs[Sort Output].Columns[TipoSexo]"
+                      name="TipoSexo">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].Columns[TipoSexo]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim Empleado\Ordenar.Outputs[Sort Output].Columns[NombreCargo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\Dim Empleado\Ordenar.Outputs[Sort Output].Columns[NombreCargo]"
+                      name="NombreCargo">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output].Columns[NombreCargo]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Dim Empleado.Paths[OLE DB Source Output]"
+              endId="Package\Dim Empleado\Ordenar.Inputs[Sort Input]"
+              name="OLE DB Source Output"
+              startId="Package\Dim Empleado\Datos Empleado.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Dim Empleado.Paths[Sort Output]"
+              endId="Package\Dim Empleado\Dim Empleado.Inputs[OLE DB Destination Input]"
+              name="Sort Output"
+              startId="Package\Dim Empleado\Ordenar.Outputs[Sort Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Dim Tiempo"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:Disabled="True"
+      DTS:DTSID="{6675FB23-0C33-4BFE-B850-F31EE0741C4F}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Dim Tiempo"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Dim Tiempo\Datos Fechas"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Datos Fechas"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Dim Tiempo\Datos Fechas.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DB.Salud6]"
+                  connectionManagerRefId="Package.ConnectionManagers[DB.Salud6]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Dim Tiempo\Datos Fechas.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <externalMetadataColumns
+                    isUsed="True" />
+                </output>
+                <output
+                  refId="Package\Dim Tiempo\Datos Fechas.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim Tiempo\Datos Fechas.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dim Tiempo\Datos Fechas.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dim Tiempo\Datos Fechas.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dim Tiempo\Datos Fechas.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Dim Tiempo\Dim Tiempo"
+              componentClassID="Microsoft.SSISODBCDst"
+              contactInfo="ODBC Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="ODBC Destination"
+              name="Dim Tiempo"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The name of the table to be fetched."
+                  expressionType="Notify"
+                  name="TableName"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows fetched per batch."
+                  expressionType="Notify"
+                  name="BatchSize">1000</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of rows inserted under the same transaction."
+                  expressionType="Notify"
+                  name="TransactionSize">1000</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines the chunk size allocation for LOB columns"
+                  expressionType="Notify"
+                  name="LobChunkSize">32768</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds to wait for an SQL statement to execute before returning to the application."
+                  expressionType="Notify"
+                  name="StatementTimeout">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The code page to use when code page information is unavailable from the data source."
+                  expressionType="Notify"
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Int32"
+                  description="The method used for inserting data. Possible values are 'Batch' or 'Row by row'."
+                  expressionType="Notify"
+                  name="InsertMethod">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="The ODBC C data type for binding numeric data."
+                  expressionType="Notify"
+                  name="BindNumericAs">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines how the component would bind columns of (multi)-byte string types (i.e., SQL_CHAR, SQL_VARCHAR, SQL_LONGVARCHAR). The options are: Unicode (SQL_C_WCHAR) and ANSI (SQL_C_CHAR)."
+                  expressionType="Notify"
+                  name="BindCharColumnsAs">0</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Dim Tiempo\Dim Tiempo.Connections[ODBCConnection]"
+                  description="The ODBC runtime connection used to access the database."
+                  name="ODBCConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Dim Tiempo\Dim Tiempo.Inputs[ODBC Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ODBC Destination Input"
+                  truncationRowDisposition="FailComponent">
+                  <externalMetadataColumns
+                    isUsed="True" />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Dim Tiempo\Dim Tiempo.Outputs[ODBC Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="ODBC Destination Error Output"
+                  synchronousInputId="Package\Dim Tiempo\Dim Tiempo.Inputs[ODBC Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim Tiempo\Dim Tiempo.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dim Tiempo\Dim Tiempo.Outputs[ODBC Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dim Tiempo\Dim Tiempo.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dim Tiempo\Dim Tiempo.Outputs[ODBC Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Dim Ubicacion"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{6AF8713E-D9EE-4B41-84C2-43E3B7A8AD9E}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Dim Ubicacion"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Dim Ubicacion\Datos Ubicacion"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Datos Ubicacion"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT Departamento.CodDepartamento, Departamento.Nombre, Municipios.CodMunicipio, Municipios.Nombre AS Expr1
+FROM     Departamento INNER JOIN
+                  Municipios ON Departamento.CodDepartamento = Municipios.CodDep</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Dim Ubicacion\Datos Ubicacion.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DB.Salud6]"
+                  connectionManagerRefId="Package.ConnectionManagers[DB.Salud6]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Output].Columns[CodDepartamento]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Output].ExternalColumns[CodDepartamento]"
+                      lineageId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Output].Columns[CodDepartamento]"
+                      name="CodDepartamento"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Output].Columns[Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Output].ExternalColumns[Nombre]"
+                      length="250"
+                      lineageId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Output].Columns[Nombre]"
+                      name="Nombre"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Output].Columns[CodMunicipio]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Output].ExternalColumns[CodMunicipio]"
+                      lineageId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Output].Columns[CodMunicipio]"
+                      name="CodMunicipio"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Output].Columns[Expr1]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Output].ExternalColumns[Expr1]"
+                      length="250"
+                      lineageId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Output].Columns[Expr1]"
+                      name="Expr1"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Output].ExternalColumns[CodDepartamento]"
+                      dataType="i4"
+                      name="CodDepartamento" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Output].ExternalColumns[Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Nombre" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Output].ExternalColumns[CodMunicipio]"
+                      dataType="i4"
+                      name="CodMunicipio" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Output].ExternalColumns[Expr1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Expr1" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Error Output].Columns[CodDepartamento]"
+                      dataType="i4"
+                      lineageId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Error Output].Columns[CodDepartamento]"
+                      name="CodDepartamento" />
+                    <outputColumn
+                      refId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Error Output].Columns[Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Error Output].Columns[Nombre]"
+                      name="Nombre" />
+                    <outputColumn
+                      refId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Error Output].Columns[CodMunicipio]"
+                      dataType="i4"
+                      lineageId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Error Output].Columns[CodMunicipio]"
+                      name="CodMunicipio" />
+                    <outputColumn
+                      refId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Error Output].Columns[Expr1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Error Output].Columns[Expr1]"
+                      name="Expr1" />
+                    <outputColumn
+                      refId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Dim Ubicacion\Dim Ubicacion"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Dim Ubicacion"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Dim Ubicacion]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Dim Ubicacion\Dim Ubicacion.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DB.DwParcial]"
+                  connectionManagerRefId="Package.ConnectionManagers[DB.DwParcial]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Dim Ubicacion\Dim Ubicacion.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Dim Ubicacion\Dim Ubicacion.Inputs[OLE DB Destination Input].Columns[CodDepartamento]"
+                      cachedDataType="i4"
+                      cachedName="CodDepartamento"
+                      externalMetadataColumnId="Package\Dim Ubicacion\Dim Ubicacion.Inputs[OLE DB Destination Input].ExternalColumns[CodDepartamento]"
+                      lineageId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Output].Columns[CodDepartamento]" />
+                    <inputColumn
+                      refId="Package\Dim Ubicacion\Dim Ubicacion.Inputs[OLE DB Destination Input].Columns[Nombre]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="Nombre"
+                      externalMetadataColumnId="Package\Dim Ubicacion\Dim Ubicacion.Inputs[OLE DB Destination Input].ExternalColumns[Nombre]"
+                      lineageId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Output].Columns[Nombre]" />
+                    <inputColumn
+                      refId="Package\Dim Ubicacion\Dim Ubicacion.Inputs[OLE DB Destination Input].Columns[CodMunicipio]"
+                      cachedDataType="i4"
+                      cachedName="CodMunicipio"
+                      externalMetadataColumnId="Package\Dim Ubicacion\Dim Ubicacion.Inputs[OLE DB Destination Input].ExternalColumns[CodMunicipio]"
+                      lineageId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Output].Columns[CodMunicipio]" />
+                    <inputColumn
+                      refId="Package\Dim Ubicacion\Dim Ubicacion.Inputs[OLE DB Destination Input].Columns[Expr1]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="Expr1"
+                      externalMetadataColumnId="Package\Dim Ubicacion\Dim Ubicacion.Inputs[OLE DB Destination Input].ExternalColumns[Expr1]"
+                      lineageId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Output].Columns[Expr1]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Dim Ubicacion\Dim Ubicacion.Inputs[OLE DB Destination Input].ExternalColumns[MIdMunicipio]"
+                      dataType="i4"
+                      name="MIdMunicipio" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Ubicacion\Dim Ubicacion.Inputs[OLE DB Destination Input].ExternalColumns[CodDepartamento]"
+                      dataType="i4"
+                      name="CodDepartamento" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Ubicacion\Dim Ubicacion.Inputs[OLE DB Destination Input].ExternalColumns[Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Nombre" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Ubicacion\Dim Ubicacion.Inputs[OLE DB Destination Input].ExternalColumns[CodMunicipio]"
+                      dataType="i4"
+                      name="CodMunicipio" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Ubicacion\Dim Ubicacion.Inputs[OLE DB Destination Input].ExternalColumns[Expr1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Expr1" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Dim Ubicacion\Dim Ubicacion.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Dim Ubicacion\Dim Ubicacion.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim Ubicacion\Dim Ubicacion.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dim Ubicacion\Dim Ubicacion.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dim Ubicacion\Dim Ubicacion.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dim Ubicacion\Dim Ubicacion.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Dim Ubicacion.Paths[OLE DB Source Output]"
+              endId="Package\Dim Ubicacion\Dim Ubicacion.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Dim Ubicacion\Datos Ubicacion.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Dim Usuario"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{1E58CDA2-41FF-4405-B874-F1D5761F2D2C}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Dim Usuario"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Dim Usuario\Datos Usuarios"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Datos Usuarios"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT Usuario.Cedula, Usuario.Nombre, Usuario.Edad, Usuario.Telefono, Sexo.TipoSexo, Regimen.Descripcion
+FROM     Usuario INNER JOIN
+                  Regimen ON Usuario.Regimen = Regimen.CodRegimen INNER JOIN
+                  Sexo ON Usuario.TSexo = Sexo.CodSexo</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Dim Usuario\Datos Usuarios.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DB.Salud6]"
+                  connectionManagerRefId="Package.ConnectionManagers[DB.Salud6]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].Columns[Cedula]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].ExternalColumns[Cedula]"
+                      lineageId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].Columns[Cedula]"
+                      name="Cedula"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].Columns[Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].ExternalColumns[Nombre]"
+                      length="250"
+                      lineageId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].Columns[Nombre]"
+                      name="Nombre"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].Columns[Edad]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].ExternalColumns[Edad]"
+                      lineageId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].Columns[Edad]"
+                      name="Edad"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].Columns[Telefono]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].ExternalColumns[Telefono]"
+                      length="50"
+                      lineageId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].Columns[Telefono]"
+                      name="Telefono"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].Columns[TipoSexo]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].ExternalColumns[TipoSexo]"
+                      length="1"
+                      lineageId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].Columns[TipoSexo]"
+                      name="TipoSexo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].Columns[Descripcion]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].ExternalColumns[Descripcion]"
+                      length="50"
+                      lineageId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].Columns[Descripcion]"
+                      name="Descripcion"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].ExternalColumns[Cedula]"
+                      dataType="i4"
+                      name="Cedula" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].ExternalColumns[Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Nombre" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].ExternalColumns[Edad]"
+                      dataType="i4"
+                      name="Edad" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].ExternalColumns[Telefono]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Telefono" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].ExternalColumns[TipoSexo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="TipoSexo" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].ExternalColumns[Descripcion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Descripcion" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Error Output].Columns[Cedula]"
+                      dataType="i4"
+                      lineageId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Error Output].Columns[Cedula]"
+                      name="Cedula" />
+                    <outputColumn
+                      refId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Error Output].Columns[Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Error Output].Columns[Nombre]"
+                      name="Nombre" />
+                    <outputColumn
+                      refId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Error Output].Columns[Edad]"
+                      dataType="i4"
+                      lineageId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Error Output].Columns[Edad]"
+                      name="Edad" />
+                    <outputColumn
+                      refId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Error Output].Columns[Telefono]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Error Output].Columns[Telefono]"
+                      name="Telefono" />
+                    <outputColumn
+                      refId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Error Output].Columns[TipoSexo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Error Output].Columns[TipoSexo]"
+                      name="TipoSexo" />
+                    <outputColumn
+                      refId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Error Output].Columns[Descripcion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Error Output].Columns[Descripcion]"
+                      name="Descripcion" />
+                    <outputColumn
+                      refId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Dim Usuario\Dim Usuario"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Dim Usuario"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Dim Usuario]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Dim Usuario\Dim Usuario.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DB.DwParcial]"
+                  connectionManagerRefId="Package.ConnectionManagers[DB.DwParcial]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Dim Usuario\Dim Usuario.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Dim Usuario\Dim Usuario.Inputs[OLE DB Destination Input].Columns[Cedula]"
+                      cachedDataType="i4"
+                      cachedName="Cedula"
+                      cachedSortKeyPosition="1"
+                      externalMetadataColumnId="Package\Dim Usuario\Dim Usuario.Inputs[OLE DB Destination Input].ExternalColumns[Cedula]"
+                      lineageId="Package\Dim Usuario\Ordenar.Outputs[Sort Output].Columns[Cedula]" />
+                    <inputColumn
+                      refId="Package\Dim Usuario\Dim Usuario.Inputs[OLE DB Destination Input].Columns[Nombre]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="Nombre"
+                      externalMetadataColumnId="Package\Dim Usuario\Dim Usuario.Inputs[OLE DB Destination Input].ExternalColumns[Nombre]"
+                      lineageId="Package\Dim Usuario\Ordenar.Outputs[Sort Output].Columns[Nombre]" />
+                    <inputColumn
+                      refId="Package\Dim Usuario\Dim Usuario.Inputs[OLE DB Destination Input].Columns[Edad]"
+                      cachedDataType="i4"
+                      cachedName="Edad"
+                      externalMetadataColumnId="Package\Dim Usuario\Dim Usuario.Inputs[OLE DB Destination Input].ExternalColumns[Edad]"
+                      lineageId="Package\Dim Usuario\Ordenar.Outputs[Sort Output].Columns[Edad]" />
+                    <inputColumn
+                      refId="Package\Dim Usuario\Dim Usuario.Inputs[OLE DB Destination Input].Columns[Telefono]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Telefono"
+                      externalMetadataColumnId="Package\Dim Usuario\Dim Usuario.Inputs[OLE DB Destination Input].ExternalColumns[Telefono]"
+                      lineageId="Package\Dim Usuario\Ordenar.Outputs[Sort Output].Columns[Telefono]" />
+                    <inputColumn
+                      refId="Package\Dim Usuario\Dim Usuario.Inputs[OLE DB Destination Input].Columns[TipoSexo]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="TipoSexo"
+                      externalMetadataColumnId="Package\Dim Usuario\Dim Usuario.Inputs[OLE DB Destination Input].ExternalColumns[TipoSexo]"
+                      lineageId="Package\Dim Usuario\Ordenar.Outputs[Sort Output].Columns[TipoSexo]" />
+                    <inputColumn
+                      refId="Package\Dim Usuario\Dim Usuario.Inputs[OLE DB Destination Input].Columns[Descripcion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Descripcion"
+                      externalMetadataColumnId="Package\Dim Usuario\Dim Usuario.Inputs[OLE DB Destination Input].ExternalColumns[Descripcion]"
+                      lineageId="Package\Dim Usuario\Ordenar.Outputs[Sort Output].Columns[Descripcion]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Dim Usuario\Dim Usuario.Inputs[OLE DB Destination Input].ExternalColumns[UIdUsuario]"
+                      dataType="i4"
+                      name="UIdUsuario" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Usuario\Dim Usuario.Inputs[OLE DB Destination Input].ExternalColumns[Cedula]"
+                      dataType="i4"
+                      name="Cedula" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Usuario\Dim Usuario.Inputs[OLE DB Destination Input].ExternalColumns[Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Nombre" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Usuario\Dim Usuario.Inputs[OLE DB Destination Input].ExternalColumns[Edad]"
+                      dataType="i4"
+                      name="Edad" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Usuario\Dim Usuario.Inputs[OLE DB Destination Input].ExternalColumns[Telefono]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Telefono" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Usuario\Dim Usuario.Inputs[OLE DB Destination Input].ExternalColumns[TipoSexo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="TipoSexo" />
+                    <externalMetadataColumn
+                      refId="Package\Dim Usuario\Dim Usuario.Inputs[OLE DB Destination Input].ExternalColumns[Descripcion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Descripcion" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Dim Usuario\Dim Usuario.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Dim Usuario\Dim Usuario.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim Usuario\Dim Usuario.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dim Usuario\Dim Usuario.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dim Usuario\Dim Usuario.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dim Usuario\Dim Usuario.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Dim Usuario\Ordenar"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Ordenar"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Dim Usuario\Ordenar.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Dim Usuario\Ordenar.Inputs[Sort Input].Columns[Cedula]"
+                      cachedDataType="i4"
+                      cachedName="Cedula"
+                      lineageId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].Columns[Cedula]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim Usuario\Ordenar.Inputs[Sort Input].Columns[Nombre]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="Nombre"
+                      lineageId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].Columns[Nombre]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim Usuario\Ordenar.Inputs[Sort Input].Columns[Edad]"
+                      cachedDataType="i4"
+                      cachedName="Edad"
+                      lineageId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].Columns[Edad]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim Usuario\Ordenar.Inputs[Sort Input].Columns[Telefono]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Telefono"
+                      lineageId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].Columns[Telefono]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim Usuario\Ordenar.Inputs[Sort Input].Columns[TipoSexo]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="TipoSexo"
+                      lineageId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].Columns[TipoSexo]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim Usuario\Ordenar.Inputs[Sort Input].Columns[Descripcion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Descripcion"
+                      lineageId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].Columns[Descripcion]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Dim Usuario\Ordenar.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim Usuario\Ordenar.Outputs[Sort Output].Columns[Cedula]"
+                      dataType="i4"
+                      lineageId="Package\Dim Usuario\Ordenar.Outputs[Sort Output].Columns[Cedula]"
+                      name="Cedula"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].Columns[Cedula]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim Usuario\Ordenar.Outputs[Sort Output].Columns[Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\Dim Usuario\Ordenar.Outputs[Sort Output].Columns[Nombre]"
+                      name="Nombre">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].Columns[Nombre]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim Usuario\Ordenar.Outputs[Sort Output].Columns[Edad]"
+                      dataType="i4"
+                      lineageId="Package\Dim Usuario\Ordenar.Outputs[Sort Output].Columns[Edad]"
+                      name="Edad">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].Columns[Edad]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim Usuario\Ordenar.Outputs[Sort Output].Columns[Telefono]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Dim Usuario\Ordenar.Outputs[Sort Output].Columns[Telefono]"
+                      name="Telefono">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].Columns[Telefono]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim Usuario\Ordenar.Outputs[Sort Output].Columns[TipoSexo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Dim Usuario\Ordenar.Outputs[Sort Output].Columns[TipoSexo]"
+                      name="TipoSexo">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].Columns[TipoSexo]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim Usuario\Ordenar.Outputs[Sort Output].Columns[Descripcion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Dim Usuario\Ordenar.Outputs[Sort Output].Columns[Descripcion]"
+                      name="Descripcion">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output].Columns[Descripcion]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Dim Usuario.Paths[OLE DB Source Output]"
+              endId="Package\Dim Usuario\Ordenar.Inputs[Sort Input]"
+              name="OLE DB Source Output"
+              startId="Package\Dim Usuario\Datos Usuarios.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Dim Usuario.Paths[Sort Output]"
+              endId="Package\Dim Usuario\Dim Usuario.Inputs[OLE DB Destination Input]"
+              name="Sort Output"
+              startId="Package\Dim Usuario\Ordenar.Outputs[Sort Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Tarea Ejecutar SQL"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{E21071BF-4CA4-4848-A51B-207C2091618D}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Tarea Ejecutar SQL"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7D44D7F7-91FE-4C3D-A098-30956C7878C9}"
+          SQLTask:SqlStatementSource="Delete [Dim Usuario] &#xA;Delete [Dim Empleado] &#xA;Delete [Dim Ubicacion] &#xA;Delete [Dim Atenciones] &#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción]"
+      DTS:CreationName=""
+      DTS:DTSID="{060FF690-40A9-4B67-B154-FC4839359B1A}"
+      DTS:From="Package\Tarea Ejecutar SQL"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción"
+      DTS:To="Package\Dim Usuario" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{72234B88-88DE-4DD1-9237-80D2A713B35E}"
+      DTS:From="Package\Tarea Ejecutar SQL"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 1"
+      DTS:To="Package\Dim Empleado" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{AF3B9331-2054-49FD-950A-C093A61AEC7C}"
+      DTS:From="Package\Tarea Ejecutar SQL"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 2"
+      DTS:To="Package\Dim Ubicacion" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{0186570A-A915-4D71-AD49-D7EE3FCADB7B}"
+      DTS:From="Package\Tarea Ejecutar SQL"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 3"
+      DTS:To="Package\Dim Atenciones" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
+<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
+<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<Objects
+  Version="8">
+  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="151,42"
+          Id="Package\Dim Atenciones"
+          TopLeft="179.285717338932,187.047059113097" />
+        <NodeLayout
+          Size="146,42"
+          Id="Package\Dim Empleado"
+          TopLeft="272.857147503872,109.88235431394" />
+        <NodeLayout
+          Size="135,42"
+          Id="Package\Dim Tiempo"
+          TopLeft="382.857149377161,191.176473269413" />
+        <NodeLayout
+          Size="146,42"
+          Id="Package\Dim Ubicacion"
+          TopLeft="457.142864927954,116.764707351638" />
+        <NodeLayout
+          Size="136,42"
+          Id="Package\Dim Usuario"
+          TopLeft="90.0000015326909,112.176471993173" />
+        <NodeLayout
+          Size="170,42"
+          Id="Package\Tarea Ejecutar SQL"
+          TopLeft="210.000003576279,32.1176475092614" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción]"
+          TopLeft="246.320003576279,73.7176475092614">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-88.3200020435879,38.4588244839112"
+              Start="0,0"
+              End="-88.3200020435879,30.9588244839112">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,7.53256691921775" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,7.53256691921775"
+                    Point2="0,11.5325669192177"
+                    Point3="-4,11.5325669192177" />
+                  <mssgle:LineSegment
+                    End="-84.3200020435879,11.5325669192177" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-84.3200020435879,11.5325669192177"
+                    Point2="-88.3200020435879,11.5325669192177"
+                    Point3="-88.3200020435879,15.5325669192177" />
+                  <mssgle:LineSegment
+                    End="-88.3200020435879,30.9588244839112" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 1]"
+          TopLeft="310.960003576279,73.7176475092614">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="35.0971439275937,36.1647068046781"
+              Start="0,0"
+              End="35.0971439275937,28.6647068046781">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,12.1779553902053" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,12.1779553902053"
+                    Point2="0,16.1779553902053"
+                    Point3="4,16.1779553902053" />
+                  <mssgle:LineSegment
+                    End="31.0971439275937,16.1779553902053" />
+                  <mssgle:CubicBezierSegment
+                    Point1="31.0971439275937,16.1779553902053"
+                    Point2="35.0971439275937,16.1779553902053"
+                    Point3="35.0971439275937,20.1779553902053" />
+                  <mssgle:LineSegment
+                    End="35.0971439275937,28.6647068046781" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 2]"
+          TopLeft="343.280003576279,73.7176475092614">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="186.662861351675,43.047059842377"
+              Start="0,0"
+              End="186.662861351675,35.547059842377">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,8.90843141904833" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,8.90843141904833"
+                    Point2="0,12.9084314190483"
+                    Point3="4,12.9084314190483" />
+                  <mssgle:LineSegment
+                    End="182.662861351675,12.9084314190483" />
+                  <mssgle:CubicBezierSegment
+                    Point1="182.662861351675,12.9084314190483"
+                    Point2="186.662861351675,12.9084314190483"
+                    Point3="186.662861351675,16.9084314190483" />
+                  <mssgle:LineSegment
+                    End="186.662861351675,35.547059842377" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 3]"
+          TopLeft="278.640003576279,73.7176475092614">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-23.7542862373469,113.329411603835"
+              Start="0,0"
+              End="-23.7542862373469,105.829411603835">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.6968900709544" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,46.6968900709544"
+                    Point2="0,50.6968900709544"
+                    Point3="-4,50.6968900709544" />
+                  <mssgle:LineSegment
+                    End="-19.7542862373469,50.6968900709544" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-19.7542862373469,50.6968900709544"
+                    Point2="-23.7542862373469,50.6968900709544"
+                    Point3="-23.7542862373469,54.6968900709544" />
+                  <mssgle:LineSegment
+                    End="-23.7542862373469,105.829411603835" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Dim Atenciones">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="117,42"
+          Id="Package\Dim Atenciones\Ordenar"
+          TopLeft="260.000004427774,131.529413609356" />
+        <NodeLayout
+          Size="160,42"
+          Id="Package\Dim Atenciones\Datos Atenciones"
+          TopLeft="237.857146907826,55.8235301946686" />
+        <NodeLayout
+          Size="151,42"
+          Id="Package\Dim Atenciones\Dim Atenciones"
+          TopLeft="253.571432889724,211.82353238251" />
+        <EdgeLayout
+          Id="Package\Dim Atenciones.Paths[Sort Output]"
+          TopLeft="318.400004427774,173.129413609356">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="10.7714284619507,38.6941187731537"
+              Start="0,0"
+              End="10.7714284619507,31.1941187731537">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.3470593865768" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15.3470593865768"
+                    Point2="0,19.3470593865768"
+                    Point3="4,19.3470593865768" />
+                  <mssgle:LineSegment
+                    End="6.77142846195073,19.3470593865768" />
+                  <mssgle:CubicBezierSegment
+                    Point1="6.77142846195073,19.3470593865768"
+                    Point2="10.7714284619507,19.3470593865768"
+                    Point3="10.7714284619507,23.3470593865768" />
+                  <mssgle:LineSegment
+                    End="10.7714284619507,31.1941187731537" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Dim Atenciones.Paths[OLE DB Source Output]"
+          TopLeft="318.1285756678,97.4235301946686">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,34.1058834146876"
+              Start="0,0"
+              End="0,26.6058834146876">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.6058834146876" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dim Atenciones\Datos Atenciones">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dim Atenciones\Dim Atenciones">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Dim Empleado">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="117,42"
+          Id="Package\Dim Empleado\Ordenar"
+          TopLeft="282.923076923077,101.846153846154" />
+        <NodeLayout
+          Size="155,42"
+          Id="Package\Dim Empleado\Datos Empleado"
+          TopLeft="263.076923076923,29.2307692307692" />
+        <NodeLayout
+          Size="146,42"
+          Id="Package\Dim Empleado\Dim Empleado"
+          TopLeft="280.769230769231,176.153846153846" />
+        <EdgeLayout
+          Id="Package\Dim Empleado.Paths[Sort Output]"
+          TopLeft="341.323076923077,143.446153846154">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="12.6461538461538,32.7076923076923"
+              Start="0,0"
+              End="12.6461538461538,25.2076923076923">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,12.3538461538461" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,12.3538461538461"
+                    Point2="0,16.3538461538461"
+                    Point3="4,16.3538461538461" />
+                  <mssgle:LineSegment
+                    End="8.64615384615382,16.3538461538461" />
+                  <mssgle:CubicBezierSegment
+                    Point1="8.64615384615382,16.3538461538461"
+                    Point2="12.6461538461538,16.3538461538461"
+                    Point3="12.6461538461538,20.3538461538461" />
+                  <mssgle:LineSegment
+                    End="12.6461538461538,25.2076923076923" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Dim Empleado.Paths[OLE DB Source Output]"
+          TopLeft="341,70.8307692307692">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.0153846153846"
+              Start="0,0"
+              End="0,23.5153846153846">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.5153846153846" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dim Empleado\Datos Empleado">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dim Empleado\Dim Empleado">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Dim Tiempo">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="135,42"
+          Id="Package\Dim Tiempo\Dim Tiempo"
+          TopLeft="240.846153846154,136.384615384615" />
+        <NodeLayout
+          Size="141,42"
+          Id="Package\Dim Tiempo\Datos Fechas"
+          TopLeft="235.384615384615,43.0769230769231" />
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dim Tiempo\Datos Fechas">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Dim Ubicacion">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="154,42"
+          Id="Package\Dim Ubicacion\Datos Ubicacion"
+          TopLeft="367.571428571429,52.5714285714286" />
+        <NodeLayout
+          Size="146,42"
+          Id="Package\Dim Ubicacion\Dim Ubicacion"
+          TopLeft="377,223" />
+        <EdgeLayout
+          Id="Package\Dim Ubicacion.Paths[OLE DB Source Output]"
+          TopLeft="447.085714285714,94.1714285714286">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,128.828571428571"
+              Start="0,0"
+              End="0,121.328571428571">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,121.328571428571" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dim Ubicacion\Datos Ubicacion">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dim Ubicacion\Dim Ubicacion">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Dim Usuario">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="117,42"
+          Id="Package\Dim Usuario\Ordenar"
+          TopLeft="307,98.5384615384615" />
+        <NodeLayout
+          Size="149,42"
+          Id="Package\Dim Usuario\Datos Usuarios"
+          TopLeft="291.538461538462,29.2307692307692" />
+        <NodeLayout
+          Size="136,42"
+          Id="Package\Dim Usuario\Dim Usuario"
+          TopLeft="311.538461538461,173.846153846154" />
+        <EdgeLayout
+          Id="Package\Dim Usuario.Paths[Sort Output]"
+          TopLeft="365.4,140.138461538462">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="14.1384615384614,33.7076923076923"
+              Start="0,0"
+              End="14.1384615384614,26.2076923076923">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,12.8538461538462" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,12.8538461538462"
+                    Point2="0,16.8538461538462"
+                    Point3="4,16.8538461538462" />
+                  <mssgle:LineSegment
+                    End="10.1384615384614,16.8538461538462" />
+                  <mssgle:CubicBezierSegment
+                    Point1="10.1384615384614,16.8538461538462"
+                    Point2="14.1384615384614,16.8538461538462"
+                    Point3="14.1384615384614,20.8538461538462" />
+                  <mssgle:LineSegment
+                    End="14.1384615384614,26.2076923076923" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Dim Usuario.Paths[OLE DB Source Output]"
+          TopLeft="365.669230769231,70.8307692307692">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,27.7076923076923"
+              Start="0,0"
+              End="0,20.2076923076923">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.2076923076923" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dim Usuario\Datos Usuarios">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dim Usuario\Dim Usuario">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
