@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">CARLOS</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAd2/d5zdgs0SuSmLnh/78qQAAAAACAAAAAAAQZgAAAAEAACAAAAC9i5A0ZbAnUuJfjuzct5VZrySK826R6vDfOV1ARQQdUAAAAAAOgAAAAAIAACAAAAB8abdkCPEkkLj1eDofxN+rPPB3YvrZFkDTRKvsawYNJJAAAAB7XAFfs3PbUR7+OvYlUz+zihMAqsuiy/ohVuqSqd2tQH1K8OiYjWovy0A3iaIIXiUUyPN+/UMKiSlqYWAecdzGHvhB9N02N6JsVqElk7PE80z/c9t+xvB5PIJ2zLqPQ+EVu1p+1GJ5LEDhTh1YUOLn/FDno+ZSKcsNIl3FwzPsQNthJpmV1kcu+gpZkSu1zQJAAAAAtSVDuykegRwXPttx2/5h+eHEiGR2SjDekwuLvBoqcXfIgSpNL748bibL3GRoXQwI1tMEhDfqCWGXEAeHseimDg==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAM/rl2SD5RUuAkt9vm/a4SgAAAAACAAAAAAAQZgAAAAEAACAAAADykrEPr5yYSGhecMHGOREM0DREZx8/huuKSvOpctVj5gAAAAAOgAAAAAIAACAAAADr9fto3Ha3U4RnOukZeyGy2reRKaIjH6Z+WlmICcrNLZAAAADnZ0dqKmbEDm/XbmES7iffFnOMXPtI5wmPO+LFdtQHbs1UJhh9DTiiEnDMeJ6CawZl2+Q2zQpA3xzLQADTTD29CWz3yc+eJh4SwHPFPV7HDe23TO1/jubmuv3JSXYZtaOKuZBfJyvfQ0sgmVE9lKeUgqy4RnyxRSmtGASi01F5nHCB8PdcPM8/q8KTZhCbUUZAAAAAAAMR7RCcPgTXYdGNP7+fmlc+41wAb2X6ExdValWwWRs/61YjQQAvUc9M/3PZa9eIwhKTO37Z4PbHfknfx1XR1A==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -357,17 +357,17 @@
                 <SSIS:Property SSIS:Name="Name">Package1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">16</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">39</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{9CF9E23C-5807-425E-8AAC-D75A839CF68A}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{E7152ACC-C70E-4411-A296-40E440C7BFAD}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
                 <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
               </SSIS:Properties>
               <SSIS:Parameters>
-                <SSIS:Parameter SSIS:Name="CM.CARLOS.DwParcial.ConnectByProxy">
+                <SSIS:Parameter SSIS:Name="CM.DB.DwParcial.ConnectByProxy">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>
@@ -382,7 +382,7 @@
                     <SSIS:Property SSIS:Name="DataType">3</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.CARLOS.DwParcial.ConnectionString">
+                <SSIS:Parameter SSIS:Name="CM.DB.DwParcial.ConnectionString">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>
@@ -393,11 +393,11 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">Data Source=CARLOS;Initial Catalog=DwParcial;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">Data Source=.;Initial Catalog=DwParcial;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.CARLOS.DwParcial.ConnectRetryCount">
+                <SSIS:Parameter SSIS:Name="CM.DB.DwParcial.ConnectRetryCount">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>
@@ -412,7 +412,7 @@
                     <SSIS:Property SSIS:Name="DataType">9</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.CARLOS.DwParcial.ConnectRetryInterval">
+                <SSIS:Parameter SSIS:Name="CM.DB.DwParcial.ConnectRetryInterval">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>
@@ -427,7 +427,7 @@
                     <SSIS:Property SSIS:Name="DataType">9</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.CARLOS.DwParcial.ConnectUsingManagedIdentity">
+                <SSIS:Parameter SSIS:Name="CM.DB.DwParcial.ConnectUsingManagedIdentity">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>
@@ -442,7 +442,7 @@
                     <SSIS:Property SSIS:Name="DataType">3</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.CARLOS.DwParcial.InitialCatalog">
+                <SSIS:Parameter SSIS:Name="CM.DB.DwParcial.InitialCatalog">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>
@@ -457,7 +457,7 @@
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.CARLOS.DwParcial.Password">
+                <SSIS:Parameter SSIS:Name="CM.DB.DwParcial.Password">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>
@@ -471,7 +471,7 @@
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.CARLOS.DwParcial.RetainSameConnection">
+                <SSIS:Parameter SSIS:Name="CM.DB.DwParcial.RetainSameConnection">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>
@@ -486,7 +486,7 @@
                     <SSIS:Property SSIS:Name="DataType">3</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.CARLOS.DwParcial.ServerName">
+                <SSIS:Parameter SSIS:Name="CM.DB.DwParcial.ServerName">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>
@@ -497,11 +497,11 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">CARLOS</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">.</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.CARLOS.DwParcial.UserName">
+                <SSIS:Parameter SSIS:Name="CM.DB.DwParcial.UserName">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>
@@ -515,7 +515,7 @@
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.CARLOS.Salud6.ConnectByProxy">
+                <SSIS:Parameter SSIS:Name="CM.DB.Salud6.ConnectByProxy">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>
@@ -530,7 +530,7 @@
                     <SSIS:Property SSIS:Name="DataType">3</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.CARLOS.Salud6.ConnectionString">
+                <SSIS:Parameter SSIS:Name="CM.DB.Salud6.ConnectionString">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>
@@ -541,11 +541,11 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">Data Source=CARLOS;Initial Catalog=Salud6;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">Data Source=.;Initial Catalog=Salud6;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.CARLOS.Salud6.ConnectRetryCount">
+                <SSIS:Parameter SSIS:Name="CM.DB.Salud6.ConnectRetryCount">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>
@@ -560,7 +560,7 @@
                     <SSIS:Property SSIS:Name="DataType">9</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.CARLOS.Salud6.ConnectRetryInterval">
+                <SSIS:Parameter SSIS:Name="CM.DB.Salud6.ConnectRetryInterval">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>
@@ -575,7 +575,7 @@
                     <SSIS:Property SSIS:Name="DataType">9</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.CARLOS.Salud6.ConnectUsingManagedIdentity">
+                <SSIS:Parameter SSIS:Name="CM.DB.Salud6.ConnectUsingManagedIdentity">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>
@@ -590,7 +590,7 @@
                     <SSIS:Property SSIS:Name="DataType">3</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.CARLOS.Salud6.InitialCatalog">
+                <SSIS:Parameter SSIS:Name="CM.DB.Salud6.InitialCatalog">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>
@@ -605,7 +605,7 @@
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.CARLOS.Salud6.Password">
+                <SSIS:Parameter SSIS:Name="CM.DB.Salud6.Password">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>
@@ -619,7 +619,7 @@
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.CARLOS.Salud6.RetainSameConnection">
+                <SSIS:Parameter SSIS:Name="CM.DB.Salud6.RetainSameConnection">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>
@@ -634,7 +634,7 @@
                     <SSIS:Property SSIS:Name="DataType">3</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.CARLOS.Salud6.ServerName">
+                <SSIS:Parameter SSIS:Name="CM.DB.Salud6.ServerName">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>
@@ -645,11 +645,11 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">CARLOS</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">.</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.CARLOS.Salud6.UserName">
+                <SSIS:Parameter SSIS:Name="CM.DB.Salud6.UserName">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>
